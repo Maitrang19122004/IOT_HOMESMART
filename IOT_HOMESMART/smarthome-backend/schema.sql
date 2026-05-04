@@ -1,20 +1,29 @@
 -- Database schema for normalized smart home tables
 
-CREATE TABLE IF NOT EXISTS sensor (
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS sensor_data;
+DROP TABLE IF EXISTS device_action;
+DROP TABLE IF EXISTS sensor;
+DROP TABLE IF EXISTS device;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+CREATE TABLE sensor (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(64) NOT NULL UNIQUE,
     unit VARCHAR(16) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS device (
+CREATE TABLE device (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(64) NOT NULL UNIQUE,
     mqtt_name VARCHAR(64),
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS sensor_data (
+CREATE TABLE sensor_data (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sensor_id INT NOT NULL,
     value DECIMAL(10,3) NOT NULL,
@@ -23,7 +32,7 @@ CREATE TABLE IF NOT EXISTS sensor_data (
     FOREIGN KEY (sensor_id) REFERENCES sensor(id)
 );
 
-CREATE TABLE IF NOT EXISTS device_action (
+CREATE TABLE device_action (
     id INT AUTO_INCREMENT PRIMARY KEY,
     device_id INT NOT NULL,
     action VARCHAR(32) NOT NULL,

@@ -34,16 +34,3 @@ export const throttle = (func, delay) => {
         }
     };
 };
-
-export const normalizeSearchValue = (value) => {
-    return value
-        .trim()
-        .replace(/\s+/g, ' ')
-        .replace(/[.-]/g, '/');
-};
-
-export const looksLikeDateTime = (value) => {
-    if (!value) return false;
-    const text = value.trim();
-    return /\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}/.test(text);
-};
